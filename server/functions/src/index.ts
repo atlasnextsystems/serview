@@ -1,10 +1,8 @@
 import { setGlobalOptions } from "firebase-functions";
-import { onRequest } from "firebase-functions/https";
-import * as logger from "firebase-functions/logger";
+import { createCompany } from "./modules/company/functions/createCompany";
+import { initUserDocument } from "./modules/auth/functions/initUserDocument";
+import { getUserCompanies } from "./modules/company/functions/getUserCompanies";
 
-setGlobalOptions({ maxInstances: 10 });
+setGlobalOptions({ maxInstances: 10, region: "southamerica-east1" });
 
-export const helloWorld = onRequest((_request, response) => {
-    logger.info("Hello logs!", { structuredData: true });
-    response.send("Hello from Firebase!");
-});
+export { createCompany, initUserDocument, getUserCompanies };

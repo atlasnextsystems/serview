@@ -1,33 +1,28 @@
-import { logger } from "firebase-functions/logger";
-import { StringParam } from "firebase-functions/params";
-
 export enum EnvironmentMode {
     DEV = "DEV",
     PROD = "PROD",
 }
 
-type ParamsMap = Record<string, StringParam>;
-
 export function validateEnvVariables(
     required: readonly string[],
-    mode: EnvironmentMode,
-    params?: ParamsMap
+    mode: EnvironmentMode
 ): void {
-    const missing = required.filter((key) => {
-        const value =
-            mode === EnvironmentMode.DEV
-                ? process.env[key] // .env
-                : params?.[key]?.value(); // params
-
-        return value == null || value.trim() === "";
-    });
-
-    if (missing.length === 0) {
+    if (typeof window === "undefined" && mode === EnvironmentMode.DEV) {
+        // Server-side: skip — Next.js will surface missing env vars
         return;
     }
 
-    const message = `The following environment variables are missing: ${missing.join(", ")}`;
+    const missing = required.filter((key) => {
+        const value = process.env[`NEXT_PUBLIC_${key}`];
+        return value == null || value.trim() === "";
+    });
 
-    logger.error(message);
-    throw new Error(message);
+    if (missing.length === 0) return;
+
+    const message = `Missing environment variables: ${missing.join(", ")}`;
+    console.error(message);
+    // In dev, warn but don't throw (allows partial local setup)
+    if (mode === EnvironmentMode.PROD) {
+        throw new Error(message);
+    }
 }

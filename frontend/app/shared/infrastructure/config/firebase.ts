@@ -1,4 +1,4 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp, getApps } from "firebase/app";
 import { EnvironmentMode, validateEnvVariables } from "./validateEnv";
 
 validateEnvVariables(
@@ -9,7 +9,6 @@ validateEnvVariables(
         "FIREBASE_STORAGE_BUCKET",
         "FIREBASE_MESSAGING_SENDER_ID",
         "FIREBASE_APP_ID",
-        "FIREBASE_MEASUREMENT_ID",
     ],
     EnvironmentMode.DEV
 );
@@ -21,7 +20,8 @@ const firebaseConfig = {
     storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
     messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
     appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
-    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
+    measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-export const app = initializeApp(firebaseConfig);
+// Guard against re-initialization on Next.js hot reload
+export const app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0];
