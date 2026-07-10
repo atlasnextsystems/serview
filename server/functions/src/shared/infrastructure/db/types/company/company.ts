@@ -144,6 +144,11 @@ export interface Subscription {
 // ---------------------------------------------------------------------------
 // Company — root document stored at /companies/{companyId}
 // ---------------------------------------------------------------------------
+export enum Role {
+    ADMIN = 'ADMIN',
+    COOK = 'COOK',
+    WAITER = 'WAITER',
+}
 
 export interface Company {
     name: string;

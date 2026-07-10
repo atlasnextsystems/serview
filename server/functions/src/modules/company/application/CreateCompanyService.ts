@@ -6,12 +6,12 @@ import { createPaymentService } from "../services/paymentService";
 import type { CreateCompanyDto } from "../dto/createCompany.dto";
 import {
     PLAN_FEATURES,
+    Role,
     SubscriptionStatus,
     WhiteLabelStatus,
 } from "../../../shared/infrastructure/db/types/company/company";
 import { db } from "../../../shared/infrastructure/db/db";
 import { companyConverter } from "../../../shared/infrastructure/db/types/company/companyConverter";
-import { Role } from "../../../shared/infrastructure/db/types/user/user";
 
 export interface CreateCompanyResult {
     companyId: string;
