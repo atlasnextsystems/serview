@@ -1,4 +1,6 @@
 import type { Timestamp } from "firebase-admin/firestore";
+import { db } from "../../db";
+import { userConverter } from "./userConverter";
 
 export enum Role {
     ADMIN = 'ADMIN',
@@ -9,7 +11,9 @@ export enum Role {
 export interface User {
     displayName: string;
     email: string;
-    photoURL: string;
     createdAt: Timestamp;
-    role: Role;
+    isGoogleSignedIn: boolean;
 }
+
+export const usersRef = db.collection('users').withConverter(userConverter);
+export const userRef = (uid: string) => db.collection('users').doc(uid).withConverter(userConverter);

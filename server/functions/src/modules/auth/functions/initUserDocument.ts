@@ -35,7 +35,8 @@ class InitUserDocumentHandler extends Handler<Input, void> {
             );
         }
 
-        await service.execute(uid, email, parsed.data);
+        const isGoogleSignedIn = request.auth?.token?.firebase?.sign_in_provider === "google.com";
+        await service.execute(uid, email, parsed.data, isGoogleSignedIn);
     }
 }
 

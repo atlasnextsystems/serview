@@ -11,6 +11,7 @@ import {
 } from "../../../shared/infrastructure/db/types/company/company";
 import { db } from "../../../shared/infrastructure/db/db";
 import { companyConverter } from "../../../shared/infrastructure/db/types/company/companyConverter";
+import { Role } from "../../../shared/infrastructure/db/types/user/user";
 
 export interface CreateCompanyResult {
     companyId: string;
@@ -91,6 +92,13 @@ export class CreateCompanyService {
                 whiteLabelEnabled: dto.whiteLabelEnabled,
                 externalSubscriptionId: paymentResult.subscriptionId,
             },
+            createdAt: now,
+            updatedAt: now,
+        });
+
+        // 5. Add creator as ADMIN of the company
+        await companyRef.collection("users").doc(uid).set({
+            role: Role.ADMIN,
             createdAt: now,
             updatedAt: now,
         });

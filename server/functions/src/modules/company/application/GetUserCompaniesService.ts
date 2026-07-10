@@ -1,5 +1,5 @@
 import * as logger from "firebase-functions/logger";
-import { getFirestore } from "firebase-admin/firestore";
+import { companiesRef } from "../../../shared/infrastructure/db/types/company/company";
 
 export interface CompanySummaryResult {
     id: string;
@@ -15,11 +15,9 @@ export interface CompanySummaryResult {
 
 export class GetUserCompaniesService {
     async execute(uid: string): Promise<CompanySummaryResult[]> {
-        const db = getFirestore();
         logger.info("Fetching companies for user", { uid });
 
-        const snapshot = await db
-            .collection("companies")
+        const snapshot = await companiesRef
             .where("ownerUid", "==", uid)
             .orderBy("createdAt", "desc")
             .get();
@@ -34,10 +32,10 @@ export class GetUserCompaniesService {
                 logoURL: data.logoURL ?? null,
                 subscription: data.subscription
                     ? {
-                          plan: data.subscription.plan,
-                          status: data.subscription.status,
-                          priceInCents: data.subscription.priceInCents,
-                      }
+                        plan: data.subscription.plan,
+                        status: data.subscription.status,
+                        priceInCents: data.subscription.priceInCents,
+                    }
                     : null,
             });
         });

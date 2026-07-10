@@ -1,4 +1,6 @@
 import type { Timestamp } from "firebase-admin/firestore";
+import { companyConverter } from "./companyConverter";
+import { db } from "../../db";
 // ---------------------------------------------------------------------------
 // Plan tiers
 // ---------------------------------------------------------------------------
@@ -152,3 +154,6 @@ export interface Company {
     createdAt: Timestamp;
     updatedAt: Timestamp;
 }
+
+export const companiesRef = db.collection('companies').withConverter(companyConverter);
+export const companyRef = (companyId: string) => db.collection('companies').doc(companyId).withConverter(companyConverter);
