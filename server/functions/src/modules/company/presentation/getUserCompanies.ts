@@ -1,4 +1,4 @@
-import { Handler } from "../../../shared/infrastructure/functions/Handler";
+import { Handler } from "../../../shared/infrastructure/exception/Handler";
 import { GetUserCompaniesService } from "../application/GetUserCompaniesService";
 import type { CompanySummaryResult } from "../application/GetUserCompaniesService";
 import type { CallableRequest } from "firebase-functions/v2/https";

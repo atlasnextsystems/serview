@@ -1,7 +1,7 @@
 import { Handler } from "../../../shared/infrastructure/exception/Handler";
 import { AppError } from "../../../shared/infrastructure/exception/AppError";
 import { CreateCompanyService } from "../application/CreateCompanyService";
-import { CreateCompanySchema } from "../presentation/dto/createCompany.dto";
+import { CreateCompanySchema } from "./dto/createCompany.dto";
 import type { CallableRequest } from "firebase-functions/https";
 import type { CreateCompanyResult } from "../application/CreateCompanyService";
 

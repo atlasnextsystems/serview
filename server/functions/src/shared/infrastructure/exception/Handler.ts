@@ -26,24 +26,24 @@ export abstract class Handler<TInput = unknown, TOutput = unknown> {
         return onCall<TInput, Promise<TOutput>>(
             { region: "southamerica-east1", cors: true },
             async (request) => {
-            try {
-                return await this.handle(request.data, request);
-            } catch (error) {
-                if (error instanceof AppError) {
-                    logger.warn(`AppError [${error.code}]: ${error.message}`, {
-                        details: error.details,
-                    });
-                    throw error.toHttpsError();
-                }
+                try {
+                    return await this.handle(request.data, request);
+                } catch (error) {
+                    if (error instanceof AppError) {
+                        logger.warn(`AppError [${error.code}]: ${error.message}`, {
+                            details: error.details,
+                        });
+                        throw error.toHttpsError();
+                    }
 
-                if (error instanceof HttpsError) {
-                    throw error;
-                }
+                    if (error instanceof HttpsError) {
+                        throw error;
+                    }
 
-                logger.error("Unhandled exception in handler", { error });
-                throw new HttpsError("internal", "An unexpected error occurred.");
-            }
-        });
+                    logger.error("Unhandled exception in handler", { error });
+                    throw new HttpsError("internal", "An unexpected error occurred.");
+                }
+            });
     }
 
     /** Asserts the caller is authenticated and returns their UID. */

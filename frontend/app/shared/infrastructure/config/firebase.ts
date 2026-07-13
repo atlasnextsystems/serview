@@ -1,17 +1,17 @@
 import { initializeApp, getApps } from "firebase/app";
-import { EnvironmentMode, validateEnvVariables } from "./validateEnv";
+// import { EnvironmentMode, validateEnvVariables } from "./validateEnv";
 
-validateEnvVariables(
-    [
-        "FIREBASE_API_KEY",
-        "FIREBASE_AUTH_DOMAIN",
-        "FIREBASE_PROJECT_ID",
-        "FIREBASE_STORAGE_BUCKET",
-        "FIREBASE_MESSAGING_SENDER_ID",
-        "FIREBASE_APP_ID",
-    ],
-    EnvironmentMode.DEV
-);
+// validateEnvVariables(
+//     [
+//         "FIREBASE_API_KEY",
+//         "FIREBASE_AUTH_DOMAIN",
+//         "FIREBASE_PROJECT_ID",
+//         "FIREBASE_STORAGE_BUCKET",
+//         "FIREBASE_MESSAGING_SENDER_ID",
+//         "FIREBASE_APP_ID",
+//     ],
+//     EnvironmentMode.DEV
+// );
 
 const firebaseConfig = {
     apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,

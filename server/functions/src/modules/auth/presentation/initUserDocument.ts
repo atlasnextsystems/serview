@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { Handler } from "../../../shared/infrastructure/functions/Handler";
-import { AppError } from "../../../shared/infrastructure/functions/AppError";
+import { Handler } from "../../../shared/infrastructure/exception/Handler";
+import { AppError } from "../../../shared/infrastructure/exception/AppError";
 import { InitUserDocumentService } from "../application/InitUserDocumentService";
 import type { CallableRequest } from "firebase-functions/https";
 

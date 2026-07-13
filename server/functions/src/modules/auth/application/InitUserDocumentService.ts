@@ -1,6 +1,6 @@
 import * as logger from "firebase-functions/logger";
 import { Timestamp } from "firebase-admin/firestore";
-import { AppError } from "../../../shared/infrastructure/functions/AppError";
+import { AppError } from "../../../shared/infrastructure/exception/AppError";
 import { userRef } from "../../../shared/infrastructure/db/types/user/user";
 
 export interface InitUserDocumentInput {
